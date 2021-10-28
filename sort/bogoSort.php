@@ -1,21 +1,6 @@
 <?php
 
 /**
- * 配列が順番通りかを検査
- * @param int[] $list
- * @return bool
- */
-function isInOrder(array $list): bool
-{
-    for ($i = 0, $length = count($list); $i < $length - 1; $i++) {
-        if ($list[$i] > $list[$i + 1]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-/**
  * ボゴソート
  * Ave: O((n + 1)!)
  * Best: O(n)
@@ -34,8 +19,23 @@ function bogoSort(array $list): array
 }
 
 /**
+ * 配列が順番通りかを検査
+ * @param int[] $list
+ * @return bool
+ */
+function isInOrder(array $list): bool
+{
+    for ($i = 0, $length = count($list); $i < $length - 1; $i++) {
+        if ($list[$i] > $list[$i + 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
  * ランダムに並べた配列を返す
- * @param int[]
+ * @param int[] $list
  * @return int[]
  */
 function makeRandomList(array $list): array

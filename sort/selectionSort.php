@@ -29,7 +29,7 @@ function selectionSort(array $list): array
 
 /**
  * ランダムに並べた配列を返す
- * @param int[]
+ * @param int[] $list
  * @return int[]
  */
 function makeRandomList(array $list): array

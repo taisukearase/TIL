@@ -63,6 +63,21 @@ class LinkedList
             $currentNode = $currentNode->next;
         }
     }
+
+    public function reverseIterative()
+    {
+        $prevNode = null;
+        $currentNode = $this->head;
+
+        while ($currentNode) {
+            $nextNode = $currentNode->next;
+            $currentNode->next = $prevNode;
+
+            $prevNode = $currentNode;
+            $currentNode = $nextNode;
+        }
+        $this->head = $prevNode;
+    }
 }
 
 $list = new LinkedList();
@@ -76,4 +91,9 @@ $list->print();
 echo PHP_EOL;
 
 $list->remove(4);
+$list->print();
+
+echo PHP_EOL;
+
+$list->reverseIterative();
 $list->print();

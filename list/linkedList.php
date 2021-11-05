@@ -78,6 +78,23 @@ class LinkedList
         }
         $this->head = $prevNode;
     }
+
+    public function reverseRecursive()
+    {
+        function _reverseRecursive($currentNode = null, $prevNode = null)
+        {
+            if (!$currentNode) {
+                return $prevNode;
+            }
+            $nextNode = $currentNode->next;
+            $currentNode->next = $prevNode;
+            $prevNode = $currentNode;
+            $currentNode = $nextNode;
+            return _reverseRecursive($currentNode, $prevNode);
+        }
+
+        $this->head = _reverseRecursive($this->head, null);
+    }
 }
 
 $list = new LinkedList();
@@ -96,4 +113,9 @@ $list->print();
 echo PHP_EOL;
 
 $list->reverseIterative();
+$list->print();
+
+echo PHP_EOL;
+
+$list->reverseRecursive();
 $list->print();

@@ -24,9 +24,14 @@ class DoublyLinkedList
             return;
         }
 
-        $currNode = $this->head;
-        $currNode->next = $newNode;
-        $newNode->prev = $currNode;
+        $lastNode = $this->head;
+
+        while ($lastNode->next) {
+            $lastNode = $lastNode->next;
+        }
+
+        $newNode->prev = $lastNode;
+        $lastNode->next = $newNode;
     }
 
     public function insert($data)
@@ -52,9 +57,48 @@ class DoublyLinkedList
             $currNode = $currNode->next;
         }
     }
+
+    public function remove($data)
+    {
+        $currNode = $this->head;
+
+        if ($currNode?->data === $data) {
+            if ($currNode->next === null) {
+                $this->head = null;
+                return;
+            }
+
+            $nextNode = $currNode->next;
+            $nextNode->prev = null;
+            $this->head = $nextNode;
+            return;
+        }
+
+        while ($currNode !== null && $currNode->data !== $data) {
+            $currNode = $currNode->next;
+        }
+
+        if ($currNode === null) {
+            return;
+        }
+        
+        $prevNode = $currNode->prev;
+        $nextNode = $currNode->next;
+        $prevNode->next = $nextNode;
+        
+        if ($nextNode === null) {
+            return;
+        }
+
+        $nextNode->prev = $prevNode;
+    }
 }
 
 $list = new DoublyLinkedList();
-$list->append(1);
-$list->insert(3);
+$list->append(2);
+$list->append(3);
+$list->append(4);
+$list->append(5);
+$list->insert(1);
+$list->remove(4);
 $list->print();

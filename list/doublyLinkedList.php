@@ -132,6 +132,26 @@ class DoublyLinkedList
 
         $this->head = _reverseRecursive($this->head);
     }
+
+    public function sort()
+    {
+        if (!$this->head) {
+            return;
+        }
+
+        $currNode = $this->head;
+        while ($currNode->next) {
+            $nextNode = $currNode->next;
+            while ($nextNode) {
+                if ($currNode->data > $nextNode->data) {
+                    [$currNode->data, $nextNode->data] = [$nextNode->data, $currNode->data];
+                }
+                $nextNode = $nextNode->next;
+            }
+
+            $currNode = $currNode->next;
+        }
+    }
 }
 
 $list = new DoublyLinkedList();
@@ -151,4 +171,10 @@ $list->print();
 echo PHP_EOL;
 
 $list->reverseRecursive();
+$list->print();
+
+echo PHP_EOL;
+
+$list->append(4);
+$list->sort();
 $list->print();

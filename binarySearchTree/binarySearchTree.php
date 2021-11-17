@@ -2,10 +2,10 @@
 
 class Node
 {
-    public $left  = null;
-    public $right = null;
+    public ?Node $left  = null;
+    public ?Node $right = null;
 
-    public function __construct(public $value)
+    public function __construct(public ?int $value = null)
     {
     }
 }
@@ -53,6 +53,43 @@ function search(?Node $node, int $value): bool
     }
 }
 
+function minValue(?Node $node): Node
+{
+    $current = $node;
+
+    while ($current->left !== null) {
+        $current = $current->left;
+    }
+
+    return $current;
+}
+
+function remove(?Node $node, int $value): Node|null
+{
+    if (!$node) {
+        return $node;
+    }
+
+    if ($value < $node->value) {
+        $node->left = remove($node->left, $value);
+    } elseif ($value > $node->value) {
+        $node->right = remove($node->right, $value);
+    } else {
+        if ($node->left === null) {
+            return $node->right;
+        }
+        if ($node->right === null) {
+            return $node->left;
+        }
+
+        $tmp = minValue($node->right);
+        $node->value = $tmp->value;
+        $node->right = remove($node->right, $tmp->value);
+    }
+
+    return $node;
+}
+
 $root = null;
 $root = insert($root, 3);
 $root = insert($root, 6);
@@ -69,3 +106,9 @@ echo PHP_EOL;
 echo inOrder($root);
 echo PHP_EOL;
 echo search($root, 1);
+echo PHP_EOL;
+
+echo remove(null, 4) === null ? 'null' : 'error';
+echo PHP_EOL;
+remove($root, 7);
+echo inOrder($root);

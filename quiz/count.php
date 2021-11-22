@@ -2,13 +2,14 @@
 // Input :'This is a pen. This is an apple. Applepen'
 // Output:('p', 6)
 
-function countCharsV1(string $input): array
+function countChars(string $input): array
 {
     $lowerStr = strtolower($input);
     $testStr  = str_replace(search: ' ', replace: '', subject: $lowerStr);
     $strChars = str_split($testStr);
 
     $resultArr = [];
+
     foreach ($strChars as $char) {
         $resultArr[$char] = substr_count($testStr, $char);
     }
@@ -22,9 +23,9 @@ function countCharsV1(string $input): array
 $input = 'This is a pen. This is an apple. Applepen';
 $expected = ['p', 6];
 
-$actual = countCharsV1($input);
+$actual = countChars($input);
 
-$result = $actual == $expected;
+$result = $actual === $expected;
 
 var_dump($actual);
 var_dump($expected);
